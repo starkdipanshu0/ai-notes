@@ -32,12 +32,15 @@ export default function NotePage() {
 
       if (!result[0]) {
         
+        if (!user?.id) {
+          throw new Error("User ID is undefined");
+        }
         await db.insert(Notes).values({
           id,
           title: 'New Note',
           content: '',
           summary: '',
-          createdBy: user?.primaryEmailAddress?.emailAddress,
+          createdBy: user?.id,
         });
         setTitle('New Note');
         setNote('');

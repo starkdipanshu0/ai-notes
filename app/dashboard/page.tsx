@@ -27,7 +27,7 @@ export default function Dashboard() {
       const result = await db
         .select()
         .from(Notes)
-        .where(eq(Notes.createdBy , user?.primaryEmailAddress?.emailAddress));
+        .where(eq(Notes.createdBy , user?.id));
 
       setNotes(result as any[]);
     };
