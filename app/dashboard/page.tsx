@@ -65,8 +65,9 @@ export default function Dashboard() {
       </section>
 
       {/* Notes Grid */}
+      
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {notes.map((note) => (
+        {notes.length != 0 &&notes.map((note) => (
 
           <Card key={note.id} onClick={() => router.push(`/dashboard/notes/${note.id}`)} className="cursor-pointer hover:shadow-md transition">
             <CardContent className="p-4">
@@ -76,6 +77,14 @@ export default function Dashboard() {
             
           </Card>
         ))}
+        {notes.length == 0 && 
+          <div className="col-span-1 sm:col-span-2 md:col-span-3 text-center p-4 border rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold">No Notes Found</h2>
+            <p className="text-sm text-muted-foreground">Create a new note to get started.</p>
+            <Button onClick={handleCreateNew} className="mt-4">Create New Note</Button>
+          </div>
+        }
+
       </section>
     </main>
   );
