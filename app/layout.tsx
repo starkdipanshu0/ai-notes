@@ -13,8 +13,11 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Ai-Notes",
+  title: "BrainBin Ai-Notes",
   description: "smart way to take notes",
+  icons: {
+    icon: "/OIP.jpeg",
+  },
 };
 
 const geistSans = Geist({
