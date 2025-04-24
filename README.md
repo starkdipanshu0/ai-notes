@@ -1,104 +1,106 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+# 📝 Notes App
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+A simple and elegant note-taking web application built with **Next.js 14**, **Drizzle ORM**, **PostgreSQL**, **Clerk for authentication**, and **TailwindCSS** for styling.
 
-## Features
+## 🚀 Features
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+- 🔐 User authentication with Clerk
+- 🗒️ Create, edit, and view personal notes
+- 📋 Each note includes a **title**, **content**, and an AI-generated **summary**
+- 📚 Dashboard view of all notes for the logged-in user
+- 💾 PostgreSQL database with Drizzle ORM
+- 🧠 Clean UI powered by TailwindCSS
+- 🧪 Type-safe schema management with Drizzle
 
-## Demo
+---
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+## 🧱 Tech Stack
 
-## Deploy to Vercel
+| Tech               | Description                                 |
+|--------------------|---------------------------------------------|
+| **Next.js 14**     | Fullstack React framework                   |
+| **Drizzle ORM**    | Type-safe, SQL-friendly ORM for PostgreSQL  |
+| **PostgreSQL**     | Relational database                         |
+| **Tailwind CSS**   | Utility-first CSS framework                 |
+| **Clerk**          | Authentication & user management            |
+| **UUID**           | For generating unique IDs for notes         |
 
-Vercel deployment will guide you through creating a Supabase account and project.
+---
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+## 📁 Project Structure
+📦 notes-app/ ├── app/ │ ├── dashboard/ → Dashboard page with user notes │ ├── dashboard/notes/ → Dynamic note page ([id].tsx) │ ├── layout.tsx → Root layout │ └── page.tsx → Landing page ├── components/ → Reusable UI components │ ├── ui/ → shadcn/ui based components │ └── navbar.tsx → Navigation bar ├── db/ → Drizzle config and schema ├── lib/ → Utilities and helpers ├── public/ → Static assets ├── styles/ → Tailwind config and global styles ├── .env.local → Environment variables ├── drizzle.config.ts → Drizzle ORM config └── README.md
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+---
 
-## Clone and run locally
+## 🛠️ Getting Started
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+### 1. Clone the Repo
 
-2. Create a Next.js app using the Supabase Starter template npx command
+```bash
+git clone https://github.com/your-username/notes-app.git
+cd notes-app
+2. Install Dependencies
+bash
+Copy
+Edit
+npm install
+3. Setup Environment Variables
+Create a .env.local file:
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+env
+Copy
+Edit
+DATABASE_URL=postgres://your_user:your_pass@localhost:5432/your_db
+CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+NEXT_PUBLIC_CLERK_FRONTEND_API=...
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+Make sure to configure your PostgreSQL instance and Clerk project.
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+4. Setup the Database
+Run migrations (Drizzle):
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+bash
+Copy
+Edit
+npx drizzle-kit push
+5. Run the Development Server
+bash
+Copy
+Edit
+npm run dev
+Visit http://localhost:3000 to see your app in action.
 
-3. Use `cd` to change into the app's directory
+✍️ Example Usage
+Login using Clerk
 
-   ```bash
-   cd with-supabase-app
-   ```
+Click "Create New Note" to open a new note page
 
-4. Rename `.env.example` to `.env.local` and update the following:
+Start writing a note → summary is generated
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+Return to dashboard to see all notes
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
+⚙️ Commands
 
-5. You can now run the Next.js local development server:
+Command	Description
+npm run dev	Start development server
+npm run build	Build for production
+npm run start	Start production server
+npx drizzle-kit push	Push Drizzle schema changes
+📦 Deployment
+This app is fully deployable to Vercel, Render, or Railway.
 
-   ```bash
-   npm run dev
-   ```
+Make sure your environment variables are set in the dashboard
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+Use PostgreSQL instance from Supabase/Neon/Render
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+📸 Screenshots
+(Add your app screenshots here)
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+🧑‍💻 Author
+Dipanshu Vishwakarma
 
-## Feedback and issues
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
