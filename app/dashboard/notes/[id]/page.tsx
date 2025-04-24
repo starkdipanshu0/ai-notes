@@ -31,16 +31,18 @@ export default function NotePage() {
       const result = await db.select().from(Notes).where(eq(Notes.id, id));
 
       if (!result[0]) {
-        
-        if (!user?.id) {
-          throw new Error("User ID is undefined");
+        if (!user?.primaryEmailAddress?.emailAddress) {
+          console.error("Email address is undefined");
+          return;
         }
+        
+        
         await db.insert(Notes).values({
           id,
           title: 'New Note',
           content: '',
           summary: '',
-          createdBy: user?.id,
+          createdBy: user?.primaryEmailAddress?.emailAddress,
         });
         setTitle('New Note');
         setNote('');

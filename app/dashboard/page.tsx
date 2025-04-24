@@ -24,10 +24,14 @@ export default function Dashboard() {
     if (!user?.primaryEmailAddress?.emailAddress) return;
 
     const fetchNotes = async () => {
+      if (!user?.primaryEmailAddress?.emailAddress) {
+        console.error("Email address is undefined");
+        return;
+      }
       const result = await db
         .select()
         .from(Notes)
-        .where(eq(Notes.createdBy , user?.id));
+        .where(eq(Notes.createdBy , user?.primaryEmailAddress?.emailAddress));
 
       setNotes(result as any[]);
     };
