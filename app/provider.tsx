@@ -1,44 +1,47 @@
 "use client"
-import { ThemeSwitcher } from '@/components/theme-switcher'
 import React, { useEffect, useState } from 'react'
 import { ThemeProvider } from "next-themes";
-import Navbar from '@/components/navbar';
-import { createClient } from "@/utils/supabase/server";
+
+
 import { db } from "@/configs/db";
 import { Users } from "@/configs/schema";
 import { eq } from "drizzle-orm";
-import {UserType} from "@/types/user";
-import {user} from './actions'
+
+import { useRouter } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
+
+
 function  Provider({children}: { children: React.ReactNode }) {
 
+   
+    const {user} = useUser();
+  
+  useEffect(() => {
+    if(user)newUser();
+  }, [user]);
+
+
+  const newUser = async()=>{
+
+    if (!user?.primaryEmailAddress?.emailAddress) {
+      console.error("Email address is undefined");
+      return;
+    }
     
+    const result = await db.select().from(Users)
+    .where(eq(Users.email, user?.primaryEmailAddress?.emailAddress));
     
-    useEffect(() => {
-        if(user==null)newUser();
-      }, [user]);
-    
-    
-      const newUser = async()=>{
-    
-        if (!user?.email) {
-          console.error("Email address is undefined");
-          return;
-        }
+    if(!result[0]){
+      await db.insert(Users).values({
+        name: user?.fullName??"",
+        email:user?.primaryEmailAddress?.emailAddress,
+        imageUrl:user?.imageUrl,
         
-        const result = await db.select().from(Users)
-        .where(eq(Users.email, user?.email));
-        
-        if(!result[0]){
-          await db.insert(Users).values({
-            name: user?.name??"",
-            email:user?.primaryEmailAddress?.emailAddress,
-            imageUrl:user?.imageUrl
-    
-          })
-        }
-    
-      }
-    
+
+      })
+    }
+
+  }  
     
 
   return (
@@ -48,19 +51,10 @@ function  Provider({children}: { children: React.ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              
-              <Navbar/>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
-              </div>
+          <main className="min-h-screen flex flex-col items-center">    
 
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                
-                <ThemeSwitcher />
-              </footer>
-            </div>
+                {children}
+
           </main>
     </ThemeProvider>
   )

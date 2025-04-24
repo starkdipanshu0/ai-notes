@@ -2,30 +2,24 @@ import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
 import { signOutAction } from '@/app/actions'
+import { ThemeSwitcher } from './theme-switcher'
 
 export default function Navbar() {
   return (
     <nav className="w-full px-4 sm:px-8 flex items-center justify-between border-b border-b-foreground/10 h-16">
                   <div className="text-xl font-bold text-gray-900 dark:text-white">
-                     🧠 AI Notes
+                     🧠 BrainBin
                   </div>
 
-                  <div className="flex gap-4 items-center">
-                    <Link href="/" className="text-sm text-gray-600 hover:text-black transition">
-                      Home
-                    </Link>
-                    <Link href="/dashboard" className="text-sm text-gray-600 hover:text-black transition">
-                      Dashboard
+                  <div className="flex gap-10 items-center">
+                    
+                    
+                    <ThemeSwitcher />
+                    <Link href="/dashboard">
+                      <Button size="sm">Sign in</Button>
                     </Link>
                     
-                    <Link href="/sign-in">
-                      <Button size="sm" variant="outline">Login</Button>
-                    </Link>
-                    <Link href="/sign-up">
-                      <Button size="sm">Sign Up</Button>
-                    </Link>
-                    
-                      <Button size="sm" variant="destructive" formAction={signOutAction}>Sign Out</Button>
+                      
                    
                   </div>
               </nav>
